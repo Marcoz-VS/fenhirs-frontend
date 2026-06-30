@@ -20,7 +20,7 @@ export default function Register() {
   const formatErrorMessages = (error) => {
     const fieldErrors = {}
     
-    if (error.response?.data?.details) {
+    if (error.response?.data?.details && Array.isArray(error.response.data.details)) {
       // Erros de validação do schema
       error.response.data.details.forEach(err => {
         fieldErrors[err.field] = err.message
@@ -33,8 +33,10 @@ export default function Register() {
       } else {
         fieldErrors.general = errorMsg
       }
-    } else {
+    } else if (error.message) {
       fieldErrors.general = 'Erro ao criar conta. Tente novamente.'
+    } else {
+      fieldErrors.general = 'Erro desconhecido. Tente novamente.'
     }
     
     return fieldErrors
