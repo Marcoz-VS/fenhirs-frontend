@@ -20,12 +20,21 @@ export default function Register() {
   const formatErrorMessages = (error) => {
     const fieldErrors = {}
     
+    console.log('🔍 Analisando erro:', {
+      response: error.response,
+      data: error.response?.data,
+      details: error.response?.data?.details,
+      error: error.response?.data?.error,
+    })
+    
     if (error.response?.data?.details && Array.isArray(error.response.data.details)) {
+      console.log('✅ Encontrados detalhes de validação:', error.response.data.details)
       // Erros de validação do schema
       error.response.data.details.forEach(err => {
         fieldErrors[err.field] = err.message
       })
     } else if (error.response?.data?.error) {
+      console.log('⚠️ Erro genérico:', error.response.data.error)
       // Erros genéricos (ex: email já cadastrado)
       const errorMsg = error.response.data.error
       if (errorMsg.includes('Email')) {
@@ -34,11 +43,13 @@ export default function Register() {
         fieldErrors.general = errorMsg
       }
     } else if (error.message) {
+      console.log('❌ Erro de rede:', error.message)
       fieldErrors.general = 'Erro ao criar conta. Tente novamente.'
     } else {
       fieldErrors.general = 'Erro desconhecido. Tente novamente.'
     }
     
+    console.log('📋 Erros formatados:', fieldErrors)
     return fieldErrors
   }
 
@@ -48,9 +59,12 @@ export default function Register() {
     setErrors({})
     
     try {
-      await register({ ...form, cac: form.cac || null })
+      console.log('📤 Enviando dados:', { ...form, cac: form.cac || null })
+      const response = await register({ ...form, cac: form.cac || null })
+      console.log('✅ Resposta completa do registro:', response)
       navigate('/login')
     } catch (err) {
+      console.log('❌ ERRO CAPTURADO:', err)
       const fieldErrors = formatErrorMessages(err)
       setErrors(fieldErrors)
     } finally {
