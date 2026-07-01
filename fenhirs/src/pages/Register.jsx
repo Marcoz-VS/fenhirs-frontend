@@ -115,7 +115,7 @@ export default function Register() {
             {field('Nome Completo', 'name', 'text', 'Seu nome completo')}
             {field('Email', 'email', 'email', 'seu@email.com')}
             {field('Senha', 'password', 'password', 'Mínimo 8 caracteres')}
-            {field('CPF', 'cpf', 'text', 'Número do CPF')}
+            {field('RG', 'rg', 'text', 'Número do RG')}
             {field('Registro CAC', 'cac', 'text', 'Número do CAC (se possuir)', false)}
             
             <button 
