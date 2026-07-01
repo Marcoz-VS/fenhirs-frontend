@@ -5,7 +5,7 @@ import { useAuth } from '../contexts/AuthContext'
 export default function Register() {
   const { register } = useAuth()
   const navigate     = useNavigate()
-  const [form, setForm]     = useState({ name: '', email: '', password: '', rg: '', cac: '' })
+  const [form, setForm]     = useState({ name: '', email: '', password: '', cpf: '', cac: '' })
   const [loading, setL]     = useState(false)
   const [errors, setErrors] = useState({})
 
@@ -79,7 +79,7 @@ export default function Register() {
             {field('Nome Completo', 'name', 'text', 'Seu nome completo')}
             {field('Email', 'email', 'email', 'seu@email.com')}
             {field('Senha', 'password', 'password', 'Mínimo 8 caracteres')}
-            {field('RG', 'rg', 'text', 'Número do RG')}
+            {field('CPF', 'cpf', 'text', 'Número do CPF')}
             {field('Registro CAC', 'cac', 'text', 'Número do CAC (se possuir)', false)}
             
             <button 
