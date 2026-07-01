@@ -21,7 +21,19 @@ export default function Register() {
     e.preventDefault()
     setL(true)
     setErrors({})
-    
+
+    try {
+      await register(form)
+      navigate('/')
+    } catch (err) {
+      setErrors(prev => ({
+        ...prev,
+        general: err?.message || 'Ocorreu um erro ao criar sua conta.',
+      }))
+    } finally {
+      setL(false)
+    }
+  }
 
   const field = (label, name, type = 'text', placeholder = '', required = true) => (
     <div>

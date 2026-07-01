@@ -22,9 +22,6 @@ export default function Login() {
       if (err.includes('Usuário inválido')) {
         return 'Email ou conta não encontrado.'
       }
-      if (err.includes('Senha inválida')) {
-        return 'Senha incorreta.'
-      }
       return err
     }
     
